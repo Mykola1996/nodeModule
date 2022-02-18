@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>Users</title>
+</head>
+
+<body class="wrapper">
+
+{{#each users}}
+    <div class="title">
+        {{this.firstName}}
+        <br/>
+        {{this.lastName}}
+        <form class="form" action="/users/{{this.id}}">
+            <input type="submit" value="info">
+        </form>
+    </div>
+{{/each}}
+
+</body>
+</html>
