@@ -22,7 +22,7 @@ app.get('/login', (req, res) => {
 app.post('/login', ({ body }, res) => {
     const userExist = users.some(user => user.email === body.email);
     if (userExist) {
-        error = 'User exists!';
+        error = 'User already exists!';
         res.redirect('/error');
         return;
     }
@@ -51,12 +51,27 @@ app.get('/users', ({ query }, res) => {
 app.get('/users/:userId', ({ params }, res) => {
     const user = users.find(user => user.id === +params.userId);
     if (!user) {
-        error = `User exists!`;
+        error = `User already exists!`;
         res.redirect('/error');
         return;
     }
 
     res.render('userInfo', { user });
+});
+
+app.get('/signIn', (req, res) => {
+    res.render('signIn');
+})
+
+app.post('/signIn', ({ body }, res) => {
+    const user = users.find(user => user.email === body.email && user.password === body.password);
+    if (!user) {
+        error = 'Try again!';
+        res.redirect('/error');
+        return;
+    }
+
+    res.redirect(`/users/${user.id}`);
 });
 
 app.get('/error', (req, res) => {
